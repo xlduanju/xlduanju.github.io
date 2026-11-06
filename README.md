@@ -35,9 +35,9 @@
 
 - 短剧主站**没有泛解析**，`randomSubdomains` 保持 0（原样显示，不随机二级域名）
 - 「可用性检测」靠加载站点上一张真实存在的小图：默认 `/favicon.ico`（xiaolanduanju.com 有）；
-  xiaolanduanju.cn 和 xiaolandaohang.com 没有这张图，已在 `probePathByHost` 里按域名
-  分别指定 `/logo.webp` 和 `/logo_sm.webp`。以后换域名如果检测一直「未必正常」，
-  就是新站上没有这张图，去 `probePathByHost` 里给它指定一张真实存在的小图
+  xiaolandaohang.com 没有这张图，已在 `probePathByHost` 里单独指定 `/logo_sm.webp`。
+  以后换域名如果检测一直「未必正常」，就是新站上没有这张图，去 `probePathByHost`
+  里给它指定一张真实存在的小图
 - 只改 `CONFIG` 那一段和 `domains.json`，页面其他部分不用动
 - 网址建议带 `https://`（漏写了页面也会自动补上）
 - `og.png` 是分享卡片图（1200×630），源文件在 `og-src/og.html`，改完用 Chrome 无头重新截一张
