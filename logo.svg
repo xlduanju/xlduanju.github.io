@@ -1,0 +1,12 @@
+<svg width="300" height="64" viewBox="0 0 300 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="xldj-mark" x1="0" y1="64" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="0.45" stop-color="#2F7BFF"/>
+      <stop offset="1" stop-color="#7A4DFF"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="4" width="56" height="56" rx="15" fill="url(#xldj-mark)"/>
+  <path d="M25 21.5c0-1.9 2.05-3.08 3.69-2.13l17.5 10.1c1.64.95 1.64 3.31 0 4.26l-17.5 10.1c-1.64.95-3.69-.23-3.69-2.13v-20.2z" fill="#fff"/>
+  <text x="74" y="45.5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" letter-spacing="2" fill="#FFFFFF">小蓝短剧</text>
+</svg>
