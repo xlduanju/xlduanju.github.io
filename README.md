@@ -41,7 +41,7 @@
 - 只改 `CONFIG` 那一段和 `domains.json`，页面其他部分不用动
 - 网址建议带 `https://`（漏写了页面也会自动补上）
 - `og.png` 是分享卡片图（1200×630），源文件在 `og-src/og.html`，改完用 Chrome 无头重新截一张
-- 统计用的是导航站同一个 GA4（G-YQ0XFMTFHJ），在 GA 里按主机名 xiaolanduanju.github.io 过滤看本页数据；
+- 统计用的是导航站同一个 GA4（G-YQ0XFMTFHJ），在 GA 里按主机名 xldjw.github.io 过滤看本页数据；
   以后想单独建一个属性，改 CONFIG 里的 `gaMeasurementId` 即可
 - SEO：`<title>`、canonical、`robots.txt`、`sitemap.xml`、页面底部「关于」那段写死的文字都在仓库里；
   Search Console / Yandex 站长验证的 meta 标签以后加在 index.html 头部
