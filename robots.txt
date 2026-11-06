@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://xldjw.github.io/sitemap.xml
+Sitemap: https://xlduanju.github.io/sitemap.xml
