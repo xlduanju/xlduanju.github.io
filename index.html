@@ -32,7 +32,7 @@
    ↓↓↓ 只需要改这一段 ↓↓↓
    · 最新地址：平时读同目录 domains.json（在 GitHub 网页上改它最方便），
      读不到时才用下面 latestDomains 兜底
-   · 永久地址 / App 下载 / 注意事项：改这里，改完在 GitHub 网页上点 Commit changes，
+   · 永久地址 / 联系方式 / 注意事项：改这里，改完在 GitHub 网页上点 Commit changes，
      1~2 分钟后页面自动生效
    ============================================================== */
 const CONFIG = {
@@ -91,7 +91,6 @@ const CONFIG = {
     --ok: #34c77b;
     --ok-soft: rgba(52, 199, 123, 0.12);
     --bad: #e05656;
-    --bad-soft: rgba(224, 86, 86, 0.12);
     --warn: #d9a13c;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -122,7 +121,6 @@ const CONFIG = {
     height: auto;
     margin: 0 auto 14px;
   }
-  h1 { font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
   .tagline { color: var(--text-dim); font-size: 14px; margin-top: 6px; }
 
   .notice {
@@ -198,7 +196,6 @@ const CONFIG = {
     padding: 14px 16px;
     margin-bottom: 10px;
     display: flex; align-items: center; gap: 12px;
-    transition: background 0.15s;
   }
   .card.best { border-color: rgba(52, 199, 123, 0.5); }
   .status {
@@ -451,7 +448,7 @@ const CONFIG = {
     return url;
   }
   /* ---------- 随机二级域名（短剧没开泛解析，CONFIG.randomSubdomains 保持 0，这段不生效） ----------
-     开了的话：地址只取主域名（a.b9o9.cc → b9o9.cc），随机生成 N 条二级域名，
+     开了的话：地址只取主域名（a.example.com → example.com），随机生成 N 条二级域名，
      每次打开页面都重新随机。只影响「官方地址」这组，导航站原样显示。 */
   var RAND_N = Math.max(0, parseInt(CONFIG.randomSubdomains, 10) || 0);
   var RAND_LEN = Math.max(3, parseInt(CONFIG.randomSubdomainLength, 10) || 6);
@@ -490,6 +487,7 @@ const CONFIG = {
     return out;
   }
   var latestSource = (CONFIG.latestDomains || []).map(normalize);
+  var addrUpdated = "";   // domains.json 里的地址更新时间；「一键复制」优先用它，别让新地址配旧日期
   var GROUPS = [
     { key: "latest", title: "官方地址", desc: "任选一条打开；打不开就换下一条", domains: expandRandom(latestSource) },
     { key: "permanent", title: "导航站 · 长期有效", desc: "打不开官网时来这里，各站最新地址一站直达", domains: (CONFIG.permanentDomains || []).map(normalize) },
@@ -610,7 +608,7 @@ const CONFIG = {
       card.appendChild(info);
       card.appendChild(actions);
 
-      rows.push({ url: url, card: card, dot: dot, meta: meta, ms: null });
+      rows.push({ url: url, card: card, dot: dot, meta: meta, ms: null, group: group });
       return card;
   }
 
@@ -714,13 +712,14 @@ const CONFIG = {
     });
   }
 
+  /* 「推荐」只在官方地址组里选：导航站是查址入口，响应再快也不抢推荐位 */
   function markBest() {
     var best = null;
     rows.forEach(function (r) {
       r.card.classList.remove("best");
       var old = r.card.querySelector(".best-tag");
       if (old) old.remove();
-      if (r.ms !== null && (best === null || r.ms < best.ms)) best = r;
+      if (r.group === "latest" && r.ms !== null && (best === null || r.ms < best.ms)) best = r;
     });
     if (best) {
       best.card.classList.add("best");
@@ -770,7 +769,8 @@ const CONFIG = {
       testAll();
     }
     if (j.updated) {
-      document.getElementById("auto-updated").textContent = String(j.updated);
+      addrUpdated = String(j.updated);
+      document.getElementById("auto-updated").textContent = addrUpdated;
       document.getElementById("auto-stamp").style.display = "";
     }
   }
@@ -778,7 +778,7 @@ const CONFIG = {
   /* ---------- 事件 ---------- */
   retestBtn.addEventListener("click", function () { track("retest"); testAll(); });
   document.getElementById("copy-all-btn").addEventListener("click", function () {
-    var lines = [CONFIG.siteName + " 地址（" + CONFIG.updated + "）"];
+    var lines = [CONFIG.siteName + " 地址（" + (addrUpdated || CONFIG.updated) + "）"];
     GROUPS.forEach(function (g) {
       if (!g.domains.length) return;
       lines.push(g.title + "：");
